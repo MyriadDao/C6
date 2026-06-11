@@ -12,6 +12,9 @@ TEST_DIR=tests
 
 LIB=s21_matrix.a
 
+TEST_EXE=$(LIB:.a=_test);
+PREV_TEST=test.txt
+
 .PHONY: clean
 
 all: $(LIB)
@@ -29,6 +32,7 @@ test: $(LIB) $(SOURCE_DIRS)
 clean:
 	rm -f $(SOURCE_DIRS)
 	rm -f $(OBJECTS) $(LIB)
+	rm -f $(TEST_EXE) 
 	rm -f *.gcov *.gcno *.gcda */*.gcov */*.gcno */*.gcda */*/*.gcov */*/*.gcno */*/*.gcda
 	rm -f coverage.info
 	rm -rf report
@@ -48,4 +52,12 @@ leak_check: CFLAGS += -DVALGRIND
 leak_check: clean $(LIB) $(SOURCE_DIRS)
 	for test in $(SOURCE_DIRS); do CK_FORK=no valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./$$test; done
 
-
+dev_test: clean $(LIB)
+	$(CC) test.c $(LIB) -o $(TEST_EXE) 
+	@echo "============PREVIOUS=============="
+	@cat $(PREV_TEST)
+	@echo "=================================="
+	@echo "============CURRENT==============="
+	@./$(TEST_EXE) > $(PREV_TEST)
+	@cat $(PREV_TEST)
+	@echo "=================================="

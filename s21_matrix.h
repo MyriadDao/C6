@@ -1,9 +1,14 @@
 #ifndef S21_MATRIX
 #define S21_MATRIX
 
+#include <stdlib.h>
+#include <math.h>
+
 #define MATRIX_OP_OK 0
 #define MATRIX_OP_ERROR 1
 #define MATRIX_CALC_ERROR 2
+
+#define EPSILON 1e-6
 
 typedef struct matrix_struct
 {

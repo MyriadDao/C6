@@ -2,6 +2,17 @@
 
 int s21_sum_matrix(s21_matrix* A, s21_matrix* B, s21_matrix* result)
 {
+	if (!A || !B || !result) return MATRIX_OP_ERROR;
+
+	for (int i = 0; i < result->columns; i++)
+	{
+		for (int j = 0; j < result->rows; j++)
+		{
+
+		}
+
+	}
+
 	return MATRIX_OP_ERROR;
 }
 

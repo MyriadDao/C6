@@ -4,6 +4,8 @@
 #include <check.h>
 
 #include "../s21_matrix.h"
+#include "../s21_matrix_utils.h"
+#include "test_utils.h"
 
 TCase* s21_create_matrix_test_case();
 TCase* s21_remove_matrix_test_case();
