@@ -21,8 +21,8 @@ int s21_create_matrix(int rows, int columns, s21_matrix* result);
 int s21_remove_matrix(s21_matrix* matrix);
 
 
-#define EQ 1;
-#define N_EQ 0; 
+#define EQ 1
+#define N_EQ 0 
 int s21_eq_matrix(s21_matrix* A, s21_matrix* B);
 
 
