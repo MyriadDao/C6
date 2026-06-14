@@ -19,13 +19,19 @@ int s21_matrix_from_array(int rows, int cols, int array_size, double* array, s21
 	if (!rows || !cols || !array) return MATRIX_OP_ERROR;
 	if (array_size != rows*cols) return MATRIX_OP_ERROR;
 
-	for (int i = 0; i < rows; i++)
+	int output = MATRIX_OP_OK;
+	if (!dest) output = s21_create_matrix(rows, cols, dest);
+
+	if (output == MATRIX_OP_OK)
 	{
-		for (int j = 0; j < cols; j++)
+		for (int i = 0; i < rows; i++)
 		{
-			dest->matrix[i][j] = array[i * rows + j];
+			for (int j = 0; j < cols; j++)
+			{
+				dest->matrix[i][j] = array[i * rows + j];
+			}
 		}
 	}
 	
-	return MATRIX_OP_OK;
+	return output;
 }
