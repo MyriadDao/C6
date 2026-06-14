@@ -46,7 +46,19 @@ int s21_sub_matrix(s21_matrix* A, s21_matrix* B, s21_matrix* result)
 
 int s21_mult_number(s21_matrix* A, double number, s21_matrix* result)
 {
-	return MATRIX_OP_ERROR;
+	if (!A || !result) return MATRIX_OP_ERROR;
+	if (A->matrix == NULL || result->matrix == NULL) return MATRIX_OP_ERROR;
+	if (A->rows != result->rows || A->columns != result->columns) return MATRIX_CALC_ERROR;
+
+	for (int i = 0; i < A->columns; i++)
+	{
+		for (int j = 0; j < A->rows; j++)
+		{
+			result->matrix[i][j] = A->matrix[i][j] * number;
+		}
+	}
+
+	return MATRIX_OP_OK;
 }
 
 int s21_mult_matrix(s21_matrix* A, s21_matrix* B, s21_matrix* result)
