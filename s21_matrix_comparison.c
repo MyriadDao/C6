@@ -1,4 +1,5 @@
 #include "s21_matrix.h"
+#include <stdio.h>
 
 static int s21_compare_double(double a, double b)
 {
@@ -15,9 +16,9 @@ int s21_eq_matrix(s21_matrix* A, s21_matrix* B)
 
 	int result = EQ;
 
-	for (int i = 0; i < A->columns; i++)
+	for (int i = 0; i < A->rows; i++)
 	{
-		for (int j = 0; j < A->rows; j++)
+		for (int j = 0; j < A->columns; j++)
 		{
 			//if (A->matrix[i][j] != B->matrix[i][j]) result = N_EQ;
 			if (s21_compare_double(A->matrix[i][j], B->matrix[i][j])) result = N_EQ;

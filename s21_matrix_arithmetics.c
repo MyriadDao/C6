@@ -63,5 +63,25 @@ int s21_mult_number(s21_matrix* A, double number, s21_matrix* result)
 
 int s21_mult_matrix(s21_matrix* A, s21_matrix* B, s21_matrix* result)
 {
+	if (!A || !B || !result) return MATRIX_OP_ERROR;
+	if (A->matrix == NULL || B->matrix == NULL || result->matrix == NULL) return MATRIX_OP_ERROR;
+
+	if (A->columns != B->rows || A->rows != B->columns) return MATRIX_CALC_ERROR;
+	if (A->columns != result->columns || B->rows != result->rows) return MATRIX_CALC_ERROR;
+
+	int sum = 0;
+	int result_col = 0;
+
+	for (int i = 0; i < result->rows; i++)
+	{
+		for (int j = 0; j < result->columns; j++)
+		{
+			for (int h = 0; h < A->rows; h++)
+			{
+				result->matrix[i][j] += A->matrix[i][h] * B->matrix[h][j];
+			}	
+		}
+	}
+
 	return MATRIX_OP_ERROR;
 }
