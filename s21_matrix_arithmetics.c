@@ -69,9 +69,6 @@ int s21_mult_matrix(s21_matrix* A, s21_matrix* B, s21_matrix* result)
 	if (A->columns != B->rows || A->rows != B->columns) return MATRIX_CALC_ERROR;
 	if (A->columns != result->columns || B->rows != result->rows) return MATRIX_CALC_ERROR;
 
-	int sum = 0;
-	int result_col = 0;
-
 	for (int i = 0; i < result->rows; i++)
 	{
 		for (int j = 0; j < result->columns; j++)
@@ -83,5 +80,5 @@ int s21_mult_matrix(s21_matrix* A, s21_matrix* B, s21_matrix* result)
 		}
 	}
 
-	return MATRIX_OP_ERROR;
+	return MATRIX_OP_OK;
 }
