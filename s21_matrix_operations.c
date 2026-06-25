@@ -107,5 +107,33 @@ int s21_determinant(s21_matrix* A, double* result)
 
 int s21_inverse_matrix(s21_matrix* A, s21_matrix* result)
 {
-	return MATRIX_OP_ERROR;
+	if (!A || !result) return MATRIX_OP_ERROR;
+	if (A->matrix == NULL || result->matrix == NULL) return MATRIX_OP_ERROR;
+
+	if (A->rows != A->columns) return MATRIX_CALC_ERROR;
+	if (result->rows != A->rows || result->columns != A->columns) return MATRIX_CALC_ERROR;
+
+	int code = MATRIX_OP_OK;
+
+	double det = 0;
+	code = s21_determinant(A, &det);
+
+	if (det == 0) code = MATRIX_CALC_ERROR;
+	else
+	{
+		s21_matrix complements = {0};
+		s21_matrix complements_t = {0};
+		code += s21_create_matrix(A->rows, A->columns, &complements);
+		code += s21_create_matrix(A->rows, A->columns, &complements_t);
+		
+		if (!code) code = s21_calc_complements(A, &complements);
+		if (!code) code = s21_transpose(&complements, &complements_t);
+
+		if (!code) code = s21_mult_number(&complements_t, 1.0 / det, result);
+
+		s21_remove_matrix(&complements);
+		s21_remove_matrix(&complements_t);
+	}
+
+	return code;
 }
