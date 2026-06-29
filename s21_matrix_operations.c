@@ -41,6 +41,7 @@ int s21_calc_complements(s21_matrix* A, s21_matrix* result)
 {
 	if (!A || !result || result->matrix == NULL || A->matrix == NULL) return MATRIX_OP_ERROR;
 	if (A->rows != A->columns) return MATRIX_CALC_ERROR;
+	if (A->rows != result->rows || A->columns != result->columns) return MATRIX_CALC_ERROR;
 
 	int code = MATRIX_OP_OK;
 

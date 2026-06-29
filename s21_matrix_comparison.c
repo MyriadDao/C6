@@ -12,6 +12,7 @@ static int s21_compare_double(double a, double b)
 int s21_eq_matrix(s21_matrix* A, s21_matrix* B)
 {
 	if (!A || !B) return MATRIX_OP_ERROR;
+	if (A->matrix == NULL || B->matrix == NULL) return MATRIX_OP_ERROR;
 	if ((A->rows != B->rows) || (A->columns != B->columns)) return MATRIX_CALC_ERROR;
 
 	int result = EQ;
@@ -20,7 +21,6 @@ int s21_eq_matrix(s21_matrix* A, s21_matrix* B)
 	{
 		for (int j = 0; j < A->columns; j++)
 		{
-			//if (A->matrix[i][j] != B->matrix[i][j]) result = N_EQ;
 			if (s21_compare_double(A->matrix[i][j], B->matrix[i][j])) result = N_EQ;
 
 		}
